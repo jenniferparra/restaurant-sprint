@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-// import './style.scss'
+import './session.scss'
 import { loginAsync, userRegisterAsync } from '../../redux/actions/userAction';
 import Swal from 'sweetalert2'
 import logo from "../../assets/images/Logo.png";
@@ -43,11 +43,12 @@ const Phone = () => {
         dispatch(loginAsync(data.email));
     }
     return (
-        <div className='container-fluid pagecnt text-center'>
-        <img className='mt-5' src={logo} alt='page logo'/>
-        <h2 className='mt-4 px-4'>Sign in</h2>
-                <p className='px-4'>Login or create an account with your phone number to start ordering</p>
-            <form onSubmit={handleSubmit(submit)}>
+        <div className='container-fluid text-center'>
+            <img className='mt-5' src={logo} alt='page logo' />
+            <h2 className='mt-4 px-4'>Sign in</h2>
+            <p className='px-4'>Login or create an account with your phone number to start ordering</p>
+            <form className='pagecnt' onSubmit={handleSubmit(submit)}>
+            <div>
                 <label className=' d-grid '>
                     <input
                         className='border-0 border-bottom border-warning'
@@ -57,7 +58,7 @@ const Phone = () => {
                     />
                     {errors.phone && <span>El campo del celular es requerido</span>}
                 </label>
-                
+                </div>
                 <div className='d-grid btn_login'>
                     <button className='btn btn-warning mb-3 py-2 fw-semibold' type='submit'>Login</button>
                 </div>

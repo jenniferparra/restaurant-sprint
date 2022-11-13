@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import './style.scss'
+import './session.scss'
 import { userRegisterAsync } from '../../redux/actions/userAction';
 import Swal from 'sweetalert2'
 
@@ -54,10 +54,11 @@ const Register = () => {
     };
 
     return (
-        <div className='container-fluid pagecnt '>
+        <div className='container-fluid text-center'>
             <h1 className='mt-5'>Create account</h1>
 
-            <form onSubmit={handleSubmit(submit)}>
+            <form className='pagecnt__register' onSubmit={handleSubmit(submit)}>
+            <div> 
                 <label className=' d-grid mb-2 mt-5'>
                     <input
                         className='border-0 border-bottom border-warning py-2'
@@ -68,7 +69,6 @@ const Register = () => {
                     {errors.name && <span>El campo del nombre es requerido</span>}
                 </label>
                 <label className=' d-grid mb-2'>
-
                     <input
                         className='border-0 border-bottom border-warning py-2'
                         type="email"
@@ -77,8 +77,7 @@ const Register = () => {
                     />
                     {errors.phone && <span>El campo del email es requerido</span>}
                 </label>
-
-                <label className=' form-floating d-grid mb-2'>
+                <label className='d-grid mb-2'>
                 <input
                         className='border-0 border-bottom border-warning py-2'
                         type="password"
@@ -96,9 +95,9 @@ const Register = () => {
                     />
                     {errors.password2 && <span>{errors.password2.message}</span>}
                 </label>
-
-                <div className='d-grid btn_login2'>
-                    <button className='btn btn-warning mb-3 py-2 fw-semibold' type='submit'>Register</button>
+                </div>
+                <div className='d-grid'>
+                    <button className='btn btn-warning py-2 fw-semibold' type='submit'>Register</button>
                 </div>
             </form>
         </div>

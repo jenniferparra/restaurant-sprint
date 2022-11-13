@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 // import { Steppers } from '../stepper/Steppers';
 import { useNavigate } from 'react-router-dom';
 import Phone from '../session/Phone';
+import { Steppers } from '../stepper/Steppers';
 
 
 const LoadingPage = () => {
@@ -33,8 +34,8 @@ const LoadingPage = () => {
           <img src={logo} alt='Logo Loading' />
         </div>
     :
-      <Phone />
-    // <Steppers />
+      // <Phone />
+    <Steppers />
     }
     </>
   )

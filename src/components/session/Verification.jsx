@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-// import './style.scss'
+// import './session.scss'
 import { loginAsync, userRegisterAsync } from '../../redux/actions/userAction';
 import Swal from 'sweetalert2'
 import logo from "../../assets/images/Logo.png";

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-// import './style.scss'
+import './session.scss'
 import { loginAsync, userRegisterAsync } from '../../redux/actions/userAction';
 import Swal from 'sweetalert2'
 import logo from "../../assets/images/Logo.png";
@@ -40,34 +40,33 @@ const Login = () => {
         dispatch(loginAsync(data.email, data.password1));
     }
     return (
-        <div className='container-fluid pagecnt text-center'>
-        <img className='mt-5' src={logo} alt='page logo'/>
-        <h2 className='mt-4 px-4'>Sign in</h2>
-                <p className='px-4'>Login to your account</p>
-            <form onSubmit={handleSubmit(submit)}>
-                <label className=' d-grid mb-2'>
-                
-                    <input
-                        className='border-0 border-bottom border-warning py-2'
-                        type="email"
-                        placeholder="Email"
-                        {...register("email", { required: true })}
-                    />
-                    {errors.phone && <span>El campo del email es requerido</span>}
-                </label>
-                
-                <label className=' d-grid '>
-                <input
-                    className='border-0 border-bottom border-warning py-2'
-                    type="password"
-                    placeholder="Contraseña"
-                    {...register("password1")}
-                />
-                {errors.password1 && <span>{errors.password1.message}</span>}
-            </label>
-                
-                <div className='d-grid btn_login2'>
-                    <button className='btn btn-warning mb-3 py-2 fw-semibold' type='submit'>Login</button>
+        <div className='container-fluid p-3 text-center'>
+            <img className='mt-3' src={logo} alt='page logo' />
+            <h2 className='mt-4 px-4'>Sign in</h2>
+            <p className='px-4'>Login to your account</p>
+            <form className='pagecnt' onSubmit={handleSubmit(submit)}>
+                <div>
+                    <label className=' d-grid mb-2'>
+                        <input
+                            className='border-0 border-bottom border-warning py-2'
+                            type="email"
+                            placeholder="Email"
+                            {...register("email", { required: true })}
+                        />
+                        {errors.phone && <span>El campo del email es requerido</span>}
+                    </label>
+                    <label className=' d-grid '>
+                        <input
+                            className='border-0 border-bottom border-warning py-2'
+                            type="password"
+                            placeholder="Contraseña"
+                            {...register("password1")}
+                        />
+                        {errors.password1 && <span>{errors.password1.message}</span>}
+                    </label>
+                </div>
+                <div className='d-grid'>
+                    <button className='btn btn-warning py-2 fw-semibold' type='submit'>Login</button>
                 </div>
             </form>
         </div>
