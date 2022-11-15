@@ -15,20 +15,20 @@ const Phone = () => {
     const dispatch = useDispatch();
     const { error, displayName } = useSelector(state => state.user)
 
-    useEffect(() => {
-        if (error) {
-            alert('Usuario o contraseña incorrecta')
-        }
-    }, [error])
+    // useEffect(() => {
+    //     if (error) {
+    //         alert('Usuario o contraseña incorrecta')
+    //     }
+    // }, [error])
 
-    useEffect(() => {
-        if (displayName) {
-            navigate('home')
-        }
-        // else {
-        //     navigate('register')
-        // }
-    }, [displayName])
+    // useEffect(() => {
+    //     if (displayName) {
+    //         navigate('/home')
+    //     }
+    //     else {
+    //         navigate('/register')
+    //     }
+    // }, [displayName])
 
 
     const {
@@ -40,7 +40,7 @@ const Phone = () => {
 
     const submit = (data) => {
         console.log(data);
-        dispatch(loginAsync(data.email));
+        // dispatch(loginAsync(data.email));
     }
     return (
         <div className='container-fluid text-center'>

@@ -6,6 +6,9 @@ import Phone from "../components/session/Phone";
 import Verification from "../components/session/Verification";
 import { Home } from "../components/home/Home";
 import LoadingPage from "../components/loading/LoadingPage";
+import Search from "../components/search/Search";
+import Order from "../components/order/Order";
+import Profile from "../components/profile/Profile";
 
 
 const Router = () => {
@@ -17,10 +20,10 @@ const Router = () => {
         <Route path="/verification" element={<Verification />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login/home" element={<Home />} />
-
-
-        
+        <Route path="/home" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

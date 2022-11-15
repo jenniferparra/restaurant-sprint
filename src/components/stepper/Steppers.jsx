@@ -42,9 +42,7 @@ export const Steppers = () => {
   };
 
   const navigate = useNavigate();
-  const navigateToSignIn = () => {
-    navigate("/phone");
-  };
+
 
   return (
     <>
@@ -62,7 +60,7 @@ export const Steppers = () => {
           </button>
         )}
         {current === steps.length - 1 && (
-          <button className="btn btn-warning" onClick={navigateToSignIn} size="large">
+          <button className="btn btn-warning" onClick={()=>(navigate('/login'))} size="large">
             Next
           </button>
         )}

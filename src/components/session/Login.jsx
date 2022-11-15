@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import './session.scss'
 import { loginAsync, userRegisterAsync } from '../../redux/actions/userAction';
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import logo from "../../assets/images/Logo.png";
 
 
@@ -23,10 +23,12 @@ const Login = () => {
 
     useEffect(() => {
         if (displayName) {
-            navigate('home')
+            navigate('/home')
         }
+        // else {
+        //     navigate('/register')
+        // }
     }, [displayName])
-
 
     const {
         register,

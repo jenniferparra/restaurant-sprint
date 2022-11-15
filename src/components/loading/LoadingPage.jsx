@@ -22,10 +22,7 @@ const LoadingPage = () => {
     TimerSteps();
   }, [])
 
-  const navigate = useNavigate();
-  const navigateSignIn = () => {
-    navigate("/phone");
-  };
+
   return (
     <>
     {
@@ -34,7 +31,6 @@ const LoadingPage = () => {
           <img src={logo} alt='Logo Loading' />
         </div>
     :
-      // <Phone />
     <Steppers />
     }
     </>
