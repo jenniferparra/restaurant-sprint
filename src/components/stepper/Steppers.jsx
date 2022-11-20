@@ -60,7 +60,7 @@ export const Steppers = () => {
           </button>
         )}
         {current === steps.length - 1 && (
-          <button className="btn btn-warning" onClick={()=>(navigate('/login'))} size="large">
+          <button className="btn btn-warning" onClick={()=>(navigate('/phone'))} size="large">
             Next
           </button>
         )}
