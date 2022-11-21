@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
+import { updateProfile, signInWithEmailAndPassword, updatePassword, updateEmail, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { userTypes } from "../types/userTypes";
 
@@ -11,14 +11,14 @@ export const actionSignPhoneAsync = (codigo) => {
         console.log(user);
         const { displayName, email, accessToken, phoneNumber, photoURL, uid } = user.auth.currentUser;
         dispatch(
-          actionSignPhoneSync({ 
-            name: displayName, 
-            email, 
-            accessToken, 
-            phoneNumber, 
-            avatar: photoURL, 
-            uid, 
-            error: false 
+          actionSignPhoneSync({
+            name: displayName,
+            email,
+            accessToken,
+            phoneNumber,
+            avatar: photoURL,
+            uid,
+            error: false
           }));
       })
       .catch((error) => {
@@ -29,33 +29,55 @@ export const actionSignPhoneAsync = (codigo) => {
   }
 }
 
-const actionSignPhoneSync = (user) => {
+export const actionSignPhoneSync = (user) => {
   return {
     type: userTypes.PHONELOGIN_USER,
     payload: { ...user },
   }
 }
 
-export const userRegisterAsync = ({ email, password, name }) => {
-  return (dispatch) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async () => {
-        await updateProfile(auth.currentUser, { displayName: name });
-        dispatch(userRegisterSync({ name, email, error: false }));
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(userRegisterSync({ error: true, email, name }));
+export const actionAuthenticationSync = () => {
+  return {
+    type: userTypes.AUTHENTICATION_USER,
+  }
+}
+
+export const actionRegisterAsync = ({ email, password, name }) => {
+  return async (dispatch) => {
+    try {
+      await updatePassword(auth.currentUser, password);
+      await updateEmail(auth.currentUser, email);
+      await updateProfile(auth.currentUser, {
+        displayName: name,
       });
+      dispatch(actionRegisterSync({ name, email, password, error: false }))
+    } catch (error) {
+      dispatch(actionRegisterSync({ error: true, errorMessage: error.message }))
+    }
   };
 };
 
-const userRegisterSync = ({ name, email, error }) => {
+const actionRegisterSync = (partialUser) => {
   return {
     type: userTypes.CREATE_USER,
-    payload: { name, email, error },
+    payload: { ...partialUser },
   };
 };
+
+export const actionUserLogOutAsync=()=>{
+  return (dispatch)=>{
+    signOut(auth)
+    .then(()=>{
+      dispatch(actionUserLogOutSync())
+    })
+    .catch((error)=>{console.log(error);})
+  }
+}
+const actionUserLogOutSync=()=>{
+  return{
+    type:userTypes.LOGOUT_USER,
+  }
+}
 
 export const loginAsync = (email, password) => {
   return (dispatch) => {

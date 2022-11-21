@@ -13,32 +13,43 @@ import PublicRouter from "./PublicRouter";
 import PrivateRouter from "./PrivateRouter";
 import { auth } from "../firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionSignPhoneSync } from "../redux/actions/userAction";
 
 
 const Router = () => {
+  const dispatch = useDispatch();
   const [isLoggedin, setIsLoggedIn] = useState(undefined);
   const [check, setcheck] = useState(true);
-  const userStore = useSelector(store=>store.userStore)
+  const userStore = useSelector(store => store.userStore)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user?.uid) {
         setIsLoggedIn(true);
-        console.log(user);
-
       } else {
         setIsLoggedIn(false);
-        console.log('nada mami siga intentando');
       }
       setcheck(false)
-      // if (condition) {
-        
-      // }
+      if (user?.auth.currentUser) {
+        if (Object.entries(userStore).length === 0) {
+          const { displayName, email, accessToken, phoneNumber, photoURL, uid } = user.auth.currentUser;
+          dispatch(
+            actionSignPhoneSync({
+              name: displayName,
+              email,
+              accessToken,
+              phoneNumber,
+              avatar: photoURL,
+              uid,
+              error: false
+            }));
+        }
+      }
     }
     );
-  }, [setIsLoggedIn, setcheck])
-  
+  }, [setIsLoggedIn, check]);
+
 
   return (
     <BrowserRouter>
@@ -49,12 +60,12 @@ const Router = () => {
           <Route path="/verification" element={<Verification />} />
         </Route>
         <Route element={<PrivateRouter isAuthentication={isLoggedin} />}>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register/:uid" element={<Register />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/order" element={<Order />} />
-        <Route path="/profile" element={<Profile />} />        </Route>
+          <Route path="/register/:uid" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/profile" element={<Profile />} />        </Route>
       </Routes>
     </BrowserRouter>
   );

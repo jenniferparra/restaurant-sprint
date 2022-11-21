@@ -24,7 +24,7 @@ const Phone = () => {
         return {
             isValid: valueLength === lengthString,
             value
-        }
+        };
     };
 
     const handleSubmit = (e) => {
@@ -44,7 +44,7 @@ const Phone = () => {
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
                 console.log(confirmationResult);
-                navigate("/verification")
+                navigate("/verification");
             })
             .catch((error) => {
                 console.log(error);

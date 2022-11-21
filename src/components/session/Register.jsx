@@ -1,48 +1,61 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import './session.scss'
-import { userRegisterAsync } from '../../redux/actions/userAction';
+import { actionAuthenticationSync, actionRegisterAsync, actionUserLogOutAsync, userRegisterAsync } from '../../redux/actions/userAction';
 import Swal from 'sweetalert2'
 
 
 const Register = () => {
+    const navigate = useNavigate()
+    const {uid} = useParams()
     const dispatch = useDispatch();
+    const userStore = useSelector((store) => store.userStore);
 
-    const { error } = useSelector((state) => state.user);
+    useEffect(() => {
+        if (userStore.name) {
+          navigate("/home")
+        }
+      }, [userStore])
 
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm();
 
     const submit = (data) => {
-        if (data.password1 === data.password2) {
-            const newUser = {
-                name: data.name,
-                email: data.email,
-                password: data.password1,
-            };
-            dispatch(userRegisterAsync(newUser));
-            if (error) {
-                alert("hay error");
-            } else {
-                alert("usuario creado exitosamente");
-            }
+        // if (data.password1 === data.password2) {
+        //     const newUser = {
+        //         name: data.name,
+        //         email: data.email,
+        //         password: data.password1,
+        //     };
+            // dispatch(userRegisterAsync(newUser));
+            // if (error) {
+            //     alert("hay error");
+            // } else {
+            //     alert("usuario creado exitosamente");
+            // }
             console.log(data);
-        } else {
-            Swal.fire(
-                '',
-                'Las contraseñas no coinciden',
-                'error'
-            )
-        }
+            dispatch(actionRegisterAsync(data))
+            dispatch(actionAuthenticationSync())
+            navigate('/home')
+        // } else {
+        //     Swal.fire(
+        //         '',
+        //         'Las contraseñas no coinciden',
+        //         'error'
+        //     )
+        // }
     }
+    const LogOutUser=()=>{
+        dispatch(actionUserLogOutAsync())
+        }
+      
     const ValidatePass = (value) => {
         if (value.length < 8) {
             return "La contraseña debería contener al menos 8 caracteres";
@@ -56,7 +69,8 @@ const Register = () => {
     return (
         <div className='container-fluid text-center'>
             <h1 className='mt-5'>Create account</h1>
-
+        <span className='d-none'>{uid}</span>
+        <button onClick={LogOutUser} className='btn btn-warning'> Log Out</button>
             <form className='pagecnt__register' onSubmit={handleSubmit(submit)}>
             <div> 
                 <label className=' d-grid mb-2 mt-5'>

@@ -2,7 +2,7 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { userReducers } from "../reducers/userReducers";
 
 const reducer = {
-  user: userReducers,
+  userStore: userReducers,
 };
 const store = configureStore({
   reducer,
