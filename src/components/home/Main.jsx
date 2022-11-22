@@ -3,7 +3,7 @@ import { IoFastFoodSharp } from "react-icons/io5";
 import { GiFruitBowl, GiNoodles, GiWrappedSweet, GiSlicedBread } from "react-icons/gi";
 import { MdStarRate } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
-import { actionFilterAsync, actionFilterPlatesAsync, actionFilterRestaurantAsync, actionGetRestaurantAsync } from '../../redux/actions/restaurantAction';
+import { actionGetPlatesAsync, actionFilterRestaurantAsync, actionGetRestaurantAsync } from '../../redux/actions/restaurantAction';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -12,6 +12,7 @@ const Main = () => {
     const dispatch = useDispatch();
     const { restaurant } = useSelector((store) => store.restaurant);
     console.log(restaurant);
+
     useEffect(() => {
         dispatch(actionGetRestaurantAsync());
     }, [dispatch]);
@@ -25,9 +26,8 @@ const Main = () => {
         let searchValue = element.name
         let id = element.idrestaurante
         const searchParam = "name";
-        const searchPlates = "restaurant";
         dispatch(actionFilterRestaurantAsync(searchParam, searchValue));
-        dispatch(actionFilterAsync(searchValue))
+        dispatch(actionGetPlatesAsync(searchValue))
         navigate('/details')
     }
     const filterbtn = [

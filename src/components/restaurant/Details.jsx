@@ -15,20 +15,23 @@ const Details = () => {
     const { restaurant } = useSelector((store) => store.restaurant);
     const { plates } = useSelector((store) => store.restaurant);
     console.log(plates)
-    // console.log(platillos)
+
     const buttonFiltered = (searchValue) => {
         const searchParam = "type";
         dispatch(actionFilterPlatesAsync(searchParam, searchValue));
     };
+
     const back = () => {
         navigate('/home')
     }
+
     const platesFiltered = (element) => {
         let searchValue = element.name
         let searchParam = 'name'
         dispatch(actionFilterPlatesAsync(searchParam, searchValue))
         navigate('/plates')
     };
+    
     const filterbtn = [
         {
             id: 1,

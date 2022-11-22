@@ -88,7 +88,7 @@ export const actionFilterRestaurantAsync = (searchParam, searchValue) => {
 
   const collectionName1 = "plates";
 
-  export const actionFilterAsync = (searchParam) => {
+  export const actionGetPlatesAsync = (searchParam) => {
     return async (dispatch) => {
       const platesCollection = collection(dataBase, collectionName1);
       const querySnapshot = await getDocs(platesCollection);
