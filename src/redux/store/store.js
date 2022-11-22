@@ -1,8 +1,10 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { restaurantReducers } from "../reducers/restaurantReducers";
 import { userReducers } from "../reducers/userReducers";
 
 const reducer = {
   userStore: userReducers,
+  restaurant: restaurantReducers
 };
 const store = configureStore({
   reducer,

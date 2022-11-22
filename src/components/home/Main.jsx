@@ -1,37 +1,51 @@
-import React from 'react';
-import { IoFastFoodSharp, IoPizzaOutline, IoIceCreamOutline } from "react-icons/io5";
-import { GiFruitBowl, GiNoodles } from "react-icons/gi";
-import restaurant from "../../assets/images/pardes.png";
+import React, { useEffect } from 'react';
+import { IoFastFoodSharp } from "react-icons/io5";
+import { GiFruitBowl, GiNoodles, GiWrappedSweet, GiSlicedBread } from "react-icons/gi";
+import { MdStarRate } from "react-icons/md";
+import { useDispatch, useSelector } from 'react-redux';
+import { actionFilterRestaurantAsync, actionGetRestaurantAsync } from '../../redux/actions/restaurantAction';
 
 
 const Main = () => {
+    const dispatch = useDispatch();
+    const { restaurant } = useSelector((store) => store.restaurant);
+    console.log(restaurant);
+    useEffect(() => {
+        dispatch(actionGetRestaurantAsync());
+    }, [dispatch]);
+
+    const buttonFiltered = (searchValue) => {
+        const searchParam = "type";
+        dispatch(actionFilterRestaurantAsync(searchParam, searchValue));
+    };
+    
     const filterbtn = [
         {
             id: 1,
             button: 'All',
         },
         {
-            id: 1,
+            id: 2,
             button: 'Fast Food',
             icon: <IoFastFoodSharp />
         },
         {
-            id: 1,
-            button: 'Pizza',
-            icon: <IoPizzaOutline />
+            id: 3,
+            button: 'Sweets & Desserts',
+            icon: <GiWrappedSweet />
         },
         {
-            id: 1,
+            id: 4,
             button: 'Salad',
             icon: <GiFruitBowl />
         },
         {
-            id: 1,
-            button: 'Ice Cream',
-            icon: <IoIceCreamOutline />
+            id: 5,
+            button: 'Bread',
+            icon: <GiSlicedBread />
         },
         {
-            id: 1,
+            id: 6,
             button: 'Pasta',
             icon: <GiNoodles />
         },
@@ -39,30 +53,53 @@ const Main = () => {
 
     return (
         <div>
-            <aside>
-                <p className="mt-3">Restaurants and cafes</p>
-                <div className="btnstyle">
-                    {filterbtn.map((filter) => {
-                        return (
-                            <div className="banner__item" key={filter.id}>
-                                <button className="btn btnclick">
-                                    <span className="me-3">{filter.icon}</span>
-                                    <span>{filter.button}</span>
-                                </button>
-                            </div>
-                        );
-                    })}
-                </div>
-            </aside>
-            <div className="mt-3 restaurant d-flex">
-                <figure className="imgcnt">
-                    <img className="restaurant__logo" src={restaurant} />
-                </figure>
-                <aside className="d-flex flex-column ms-3 aside">
-                    <h5>Pardes Restaurant</h5>
-                    <p className="mb-0"> Work time 09:30-21:00</p>
-                    <p className="p_text mt-0">Before you 4$</p>
-                </aside>
+            <p className="mt-3">Restaurants and cafes</p>
+            <div className="btnstyle">
+                {filterbtn.map((filter) => {
+                    return (
+                        <div className="banner__item" key={filter.id} >
+                            <button className="btn btnclick"
+                                onClick={() => {
+                                    buttonFiltered(filter.button);
+                                }}>
+                                <span className="me-3">{filter.icon}</span>
+                                <span>{filter.button}</span>
+                            </button>
+                        </div>
+                    );
+                })
+                }
+            </div>
+
+            <div>
+                {restaurant.map((element, index) => {
+                    let puntaje = 0;
+                    if (element.rate === 1) {
+                        puntaje = '⭐'
+                    } if (element.rate === 2) {
+                        puntaje = '⭐⭐'
+                    } if (element.rate === 3) {
+                        puntaje = '⭐⭐⭐'
+                    } if (element.rate === 4) {
+                        puntaje = '⭐⭐⭐⭐'
+                    } if (element.rate === 5) {
+                        puntaje = '⭐⭐⭐⭐⭐'
+                    }
+                    return (
+
+                        <div className="mt-3 restaurant d-flex" key={index}>
+                            <figure className="imgcnt">
+                                <img className="restaurant__logo" src={element.img} />
+                            </figure>
+                            <aside className="d-flex flex-column ms-3 aside">
+                                <h5>{element.name}</h5>
+                                <span>{puntaje}</span>
+                                <p className="mb-0"> Work time {element.time}</p>
+                                <p className="p_text mt-0">Before you {element.dollar}</p>
+                            </aside>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     )

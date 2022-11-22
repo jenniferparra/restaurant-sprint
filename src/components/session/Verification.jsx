@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import './session.scss'
-import { actionAuthenticationSync, actionSignPhoneAsync, loginAsync, userRegisterAsync } from '../../redux/actions/userAction';
+import { actionAuthenticationSync, actionSignPhoneAsync } from '../../redux/actions/userAction';
 import Swal from 'sweetalert2'
 import logo from "../../assets/images/Logo.png";
 import store from '../../redux/store/store';
@@ -24,6 +24,7 @@ const Verification = () => {
             if (!user.name && !user.email) {
                 navigate(`/register/${user.uid}`)
             } else {
+                // dispatch(actionAuthenticationSync())
                 navigate('/home')
             }
         }

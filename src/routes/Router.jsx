@@ -65,7 +65,8 @@ const Router = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/order" element={<Order />} />
-          <Route path="/profile" element={<Profile />} />        </Route>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

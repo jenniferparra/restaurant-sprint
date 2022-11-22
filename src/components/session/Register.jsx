@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import './session.scss'
-import { actionAuthenticationSync, actionRegisterAsync, actionUserLogOutAsync, userRegisterAsync } from '../../redux/actions/userAction';
+import { actionAuthenticationSync, actionRegisterAsync, actionUserLogOutAsync } from '../../redux/actions/userAction';
 import Swal from 'sweetalert2'
 
 
