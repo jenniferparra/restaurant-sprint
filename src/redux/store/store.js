@@ -4,7 +4,7 @@ import { userReducers } from "../reducers/userReducers";
 
 const reducer = {
   userStore: userReducers,
-  restaurant: restaurantReducers
+  restaurant: restaurantReducers,
 };
 const store = configureStore({
   reducer,

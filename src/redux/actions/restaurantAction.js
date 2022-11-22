@@ -85,3 +85,66 @@ export const actionFilterRestaurantAsync = (searchParam, searchValue) => {
       },
     };
   };
+
+  const collectionName1 = "plates";
+
+  export const actionFilterAsync = (searchParam) => {
+    return async (dispatch) => {
+      const platesCollection = collection(dataBase, collectionName1);
+      const querySnapshot = await getDocs(platesCollection);
+      const plates = [];
+      try {
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          plates.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+          //   console.log(doc.id, " => ", doc.data());
+        });
+    console.log(plates)
+    console.log(searchParam)
+        const filterPlates = plates.filter((item) =>
+          item.restaurant.toLowerCase().includes(searchParam.toLowerCase())
+        );
+        console.log(filterPlates);
+        dispatch(actionFilterPlatesSync(filterPlates));
+      } catch (error) {
+        console.error(error);
+        dispatch(actionFilterPlatesSync([]));
+      }
+    };
+  };
+
+  export const actionFilterPlatesAsync = (searchParam, searchValue) => {
+    console.log(searchValue)
+    console.log(searchParam)
+    return async (dispatch) => {
+      const platesCollection = collection(dataBase, collectionName1);
+      const q = query(platesCollection, where(searchParam, "==", searchValue));
+      const plates = [];
+      try {
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          plates.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        dispatch(actionFilterPlatesSync(plates));
+      }
+    }
+  };
+
+const actionFilterPlatesSync = (plates) => {
+    console.log(plates)
+    return {
+      type: restaurantTypes.DETAILS_RESTAURANT,
+      payload: {
+        plates: plates,
+      },
+    }
+  };

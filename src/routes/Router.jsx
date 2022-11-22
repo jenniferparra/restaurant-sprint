@@ -15,6 +15,7 @@ import { auth } from "../firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { actionSignPhoneSync } from "../redux/actions/userAction";
+import Details from "../components/restaurant/Details";
 
 
 const Router = () => {
@@ -63,6 +64,7 @@ const Router = () => {
           <Route path="/register/:uid" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/details" element={<Details />} />
           <Route path="/search" element={<Search />} />
           <Route path="/order" element={<Order />} />
           <Route path="/profile" element={<Profile />} />
