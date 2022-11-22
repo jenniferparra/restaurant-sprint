@@ -1,8 +1,12 @@
 import React from 'react'
+import Footer from '../home/Footer'
 
 const Order = () => {
   return (
-    <div>Order</div>
+    <div>
+    <p>Order</p>
+    <Footer/>
+    </div>
   )
 }
 
